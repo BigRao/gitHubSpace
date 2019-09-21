@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inspur.bjzx.mbh.dao.CommIndicateZhcxDao">
+
+	<select id="getByList" resultMap="java.util.HashMap">
+		select INDIC_ID,INDIC_NAME,TABLE_NAME,COLUMN_NAME,TIME_INTERVAL
+		from FMS_COMM_INDICATE_ZHCX_bak
+		where INDIC_ID in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+
+	</select>
+
+</mapper>

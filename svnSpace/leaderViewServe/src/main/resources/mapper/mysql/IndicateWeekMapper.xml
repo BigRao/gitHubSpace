@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inspur.plugins.ldst.dao.IndicateWeekDao">
+
+    <select id="getByName" resultType="java.util.HashMap">
+		select fault_room_rate,wireless_rate
+        from PM_GFS_INDICATE_WEEK
+        where FGS='${name}' and TIME between #{monday} and #{sunday}
+	</select>
+
+    <select id="getByTime" resultType="java.util.HashMap">
+		select ${name} ,time TIME
+		from PM_GFS_INDICATE_WEEK
+		where fgs = '${city}' and time between #{endTime} and #{startTime}
+		order by time
+	</select>
+
+</mapper>

@@ -1,3 +1,10 @@
+# intelliJ
+
+**/.idea/
+**/target/
+**/.svn/
+**/logs/
+
 # Compiled class file
 *.class
 

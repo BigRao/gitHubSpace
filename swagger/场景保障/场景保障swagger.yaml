@@ -1,0 +1,1518 @@
+swagger: "2.0"
+info:
+  description: "重保重大活动保障相关功能"
+  version: "1.0.0"
+  title: "场景保障"
+host: "petstore.swagger.io"
+basePath: "/scenesecurityserve"
+schemes:
+- "http"
+paths:
+  /getNotice:
+    get:
+      tags:
+      - "Notice"
+      summary: "公告查询接口"
+      description: "公告查询接口"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getNotice"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /addNotice:
+    post:
+      tags:
+      - "Notice"
+      summary: "公告新增接口"
+      description: "公告新增接口 "
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "公告信息json"
+        required: true
+        schema:
+          $ref: "#/definitions/NoticeContent"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/AddNotice"
+        400:
+          description: "Invalid status value"
+  /focus/getNum:
+    get:
+      tags:
+      - "StationBreaken"
+      summary: "数量查询接口"
+      description: "数量查询接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getNum"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /focus/searchFaultWorks:
+    get:
+      tags:
+      - "StationBreaken"
+      summary: "故障工单查询接口"
+      description: "故障工单查询接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "associatedId"
+        in: "query"
+        description: "故障工单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/searchFaultWorks"
+        404:
+          description: "Kpi not found"
+  /focus/searchPerformanceWorks:
+    get:
+      tags:
+      - "StationBreaken"
+      summary: "性能工单查询接口"
+      description: "性能工单查询接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "associatedId"
+        in: "query"
+        description: "性能工单id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/searchPerformanceWorks"
+        404:
+          description: "Kpi not found"
+  /focus/getCompanyOrPerson:
+    get:
+      tags:
+      - "Person"
+      summary: "查询部门/人员列表接口"
+      description: "查询部门/人员列表接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "searchType"
+        in: "query"
+        description: "查询类型    人员/部门     person/ company"
+        required: true
+        type: "string"
+      - name: "searchText"
+        in: "query"
+        description: "查询值"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getCompanyOrPerson"
+        404:
+          description: "Kpi not found"
+  /focus/getPerson:
+    get:
+      tags:
+      - "Person"
+      summary: "查询部门人员接口"
+      description: "查询部门人员接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "userId"
+        in: "query"
+        description: "登录用户id"
+        required: true
+        type: "string"
+      - name: "company"
+        in: "query"
+        description: "部门名称"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getPerson"
+        404:
+          description: "Kpi not found"
+  /focus/sendMessageForVideo:
+    post:
+      tags:
+      - "Call"
+      summary: "视频通知接口"
+      description: "视频通知接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "短信通知json"
+        required: true
+        schema:
+          $ref: "#/definitions/sendMessageForVideo"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/sendMessageForVideoResponse"
+        404:
+          description: "Kpi not found"
+  /focus/sendSms:
+    post:
+      tags:
+      - "Call"
+      summary: "短信通知接口"
+      description: "短信通知接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "短信通知json"
+        required: true
+        schema:
+          $ref: "#/definitions/sendSmsInfo"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/sendMessageForVideoResponse"
+        404:
+          description: "Kpi not found"
+  /focus/realTimeSign:
+    post:
+      tags:
+      - "Sign"
+      summary: "实时打点接口"
+      description: "实时打点接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "签到信息json"
+        required: true
+        schema:
+          $ref: "#/definitions/realTimeSign"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/realTimeSignResponse"
+        404:
+          description: "Kpi not found"
+  /focus/searchSign:
+    get:
+      tags:
+      - "Sign"
+      summary: "签到查询接口（当天的）"
+      description: "签到查询接口（当天的）"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "userId"
+        in: "query"
+        description: "登录用户id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/searchSign"
+        404:
+          description: "Kpi not found"
+  /focus/searchSignLine:
+    get:
+      tags:
+      - "Sign"
+      summary: "签到线路查询接口（当天的这个人所有的）"
+      description: "签到线路查询接口（当天的这个人所有的）"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "userId"
+        in: "query"
+        description: "登录用户id"
+        required: true
+        type: "string"
+      - name: "signUserId"
+        in: "query"
+        description: "被查询人的Id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/searchSignLine"
+        404:
+          description: "Kpi not found"
+  /special/getSecurityPersons:
+    get:
+      tags:
+      - "Sign"
+      summary: "全网保障人员查询接口"
+      description: "全网保障人员查询接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "userId"
+        in: "query"
+        description: "登录用户id"
+        required: true
+        type: "string"
+      - name: "searchUserName"
+        in: "query"
+        description: "查询保障人员姓名"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/getSecurityPersons"
+        404:
+          description: "Kpi not found"
+  /kpi/searchKeyAreas:
+    get:
+      tags:
+      - "Kpi"
+      summary: "查询重点区域"
+      description: "查询重点区域"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/searchKeyAreas"
+        404:
+          description: "Kpi not found"
+  /kpi/searchKeyAreaBrokenStation:
+    get:
+      tags:
+      - "Kpi"
+      summary: "查询重点区域断站信息"
+      description: "查询重点区域断站信息"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "area_id"
+        in: "query"
+        description: "区域id"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "查询时间"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/searchKeyAreaBrokenStations"
+        404:
+          description: "Kpi not found"
+  /singleLatitudeGetKpi:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "单一纬度值接口"
+      description: "单一纬度值接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20或最大时间值max"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getsingleLatitudeGetKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /manyTimeSearch:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "多时间维度查询接口"
+      description: "多时间维度查询接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "多时间维度，如：max/7 就相当于：最大时间/需要获取的天数或者小时数，或者分钟数；或2019-02-20/7"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      - name: "time_type"
+        in: "query"
+        description: "时间类型 hour 小时 minutes     分钟 day 天"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getmanyTimeSearch"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /getTopKpi:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "TOP查询接口"
+      description: "TOP查询接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getmanyLatitudeGetKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /brokenStation:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "基站断站"
+      description: "基站断站"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "stationType"
+        in: "query"
+        description: "断站类型"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20或最大时间值max"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "网元Id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GetStationLocation"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /abnormalPlot:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "异常小区数量"
+      description: "异常小区数量"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "neId"
+        in: "query"
+        description: "区域Id"
+        required: true
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "网络类型2G 4G 5G"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getAbnormalPlot"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /searchVillage:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "根据网络类型查询小区"
+      description: "根据网络类型查询小区"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "neId"
+        in: "query"
+        description: "区域Id"
+        required: true
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "网络类型"
+        required: true
+        type: "string"
+      - name: "cellType"
+        in: "query"
+        description: "小区类型：红/黄/蓝/全部"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getSearchVillage"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /searchVillageKpi:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "查询小区kpi"
+      description: "查询小区kpi"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "regionId"
+        in: "query"
+        description: "区域Id"
+        required: true
+        type: "string"
+      - name: "villageName"
+        in: "query"
+        description: "小区名字"
+        required: true
+        type: "string"
+      - name: "type"
+        in: "query"
+        description: "网络类型2G 4G 5G"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getSearchVillageKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /manyTimeSearchVillageKpi:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "多时间维度查询小区kpi"
+      description: "多时间维度查询小区kpi"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "cloumnName"
+        in: "query"
+        description: "指标英文名"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "多时间维度，如：max/7 就相当于：最大时间/需要获取的天数或者小时数，或者分钟数；或2019-02-20/7"
+        required: true
+        type: "string"
+      - name: "villageName"
+        in: "query"
+        description: "小区名称"
+        required: true
+        type: "string"
+      - name: "regionId"
+        in: "query"
+        description: "区域id"
+        required: true
+        type: "string"
+      - name: "cellType"
+        in: "query"
+        description: "网络类型"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getmanyTimeSearch"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+definitions:
+  getSearchVillageKpi:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        type: "string"
+        example: 
+          - name: "RRC连接建立成功率"
+            value: "88.24"
+            cloum_name: "C_RRC_CONNSUCC_RATE"
+          - name: "RRC用户数"
+            value: "9"
+            cloum_name: "C_RRC_USERNUM"
+  getSearchVillage:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/searchVillage"
+  searchVillage:
+    type: "array"
+    items:
+      $ref: "#/definitions/village"
+  village:
+    type: "object"
+    properties:
+      villageName:
+        type: "string"
+        example: "小区1"
+      villageId:
+        type: "string"
+        example: "1121"
+    
+  getAbnormalPlot:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/abnormalPlot"
+  
+  abnormalPlot:
+    type: "object"
+    properties:
+      red:
+        type: "string"
+        example: "红色预警数量 0"
+      yellow:
+        type: "string"
+        example: "黄色预警数量 0"
+      blue:
+        type: "string"
+        example: "蓝色预警数量 0"
+      total:
+        type: "string"
+        example: "总数量 0"
+
+  getmanyLatitudeGetKpi:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/manyLatitudeGetKpi"
+  manyLatitudeGetKpi:
+    type: "object"
+    properties:
+      neName: 
+        type: "string"
+        example: 
+          - '城一'
+          - '城二'
+          - '城三'
+          - '...'
+          - '昌平'
+      neId:
+        type: "string"
+        example: "网元Id"
+      time:
+        type: "string"
+        example: "时间"
+      kpis:
+        $ref: "#/definitions/kpis"
+  getNotice:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/NoticObject"
+  
+  NoticObject:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "id"
+      title:
+        type: "string"
+        example: "公告标题"
+      content:
+        type: "string"
+        example: "内容"
+      release_person:
+        type: "string"
+        example: "发起公告人"
+      release_time:
+        type: "string"
+        example: "发起公告时间"
+  searchKeyAreasObject:
+    type: "object"
+    properties:
+      area_one:
+        type: "string"
+        example: "二级区域名称"
+      areas:
+        $ref: "#/definitions/Areas"
+      
+  NoticeContent:
+    type: "object"
+    properties:
+      userAccount:
+        type: "string"
+        example: "登录用户账号"
+      title:
+        type: "string"
+        example: "公告标题"
+      noticeText:
+        type: "string"
+        example: "公告内容"
+        
+  AddNotice:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "添加成功"
+      data: 
+        type: "string"
+        example: "1"
+  searchKeyAreaBrokenStations:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "添加成功"
+      data: 
+        $ref: "#/definitions/BrokenStations"
+        
+  getNum:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/NumObject"
+        
+  NumObject:
+    type: "object"
+    properties:
+      toDoNum:
+        type: "string"
+        example: "待办工单数量"
+      faultNum: 
+        type: "string"
+        example: "故障工单数量"
+      performanceNum:
+        type: "string"
+        example: "性能工单数量"
+      personNum:
+        type: "string"
+        example: "全网保障人员"
+      networkOverviewNum: 
+        type: "string"
+        example: "全网概览（故障工单）"
+      faultAreaNum:
+        type: "string"
+        example: "全网保障人员"
+        
+  searchFaultWorks:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/searchFaultWorkArray"
+  searchFaultWorkArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/searchFaultWorkObject"
+  Areas:
+    type: "array"
+    items:
+      $ref: "#/definitions/Area"
+  BrokenStations:
+    type: "array"
+    items:
+      $ref: "#/definitions/BrokenStation"
+  Area:
+    type: "object"
+    properties:
+      area_two:
+        type: "string"
+        example: "三级区域名称"
+      area_two_id:
+        type: "string"
+        example: "三级区域id"
+  BrokenStation:
+    type: "object"
+    properties:
+      area:
+        type: "string"
+        example: "区域名称"
+      area_id:
+        type: "string"
+        example: "区域id"
+      broken_station_two:
+        type: "string"
+        example: "2G退服"
+      broken_station_four:
+        type: 'string'
+        example: "4G退服"
+      broken_station_five:
+        type: "string"
+        example: "5G退服"
+      abnormal_cell:
+        type: "string"
+        example: "异常小区"
+      abnormal_computer_room:
+        type: "string"
+        example: "异常机房"
+  searchFaultWorkObject:
+    type: "object"
+    properties:
+      sheet_id:
+        type: "string"
+        example: "ID-3021-190104-01766  工单id"
+      station_name: 
+        type: "string"
+        example: "朝阳东辛店村铁路北HD  基站名称"
+      station_id:
+        type: "string"
+        example: "18264 基站id"
+      station_type:
+        type: "string"
+        example: "2G  基站类型"
+      sheet_current_department: 
+        type: "string"
+        example: "城区一分公司.网络部 处理部门"
+      honeycomb_type:
+        type: "string"
+        example: "宏蜂窝  网元类型"
+      fgs:
+        type: "string"
+        example: "城一分公司  分公司"
+      longitude: 
+        type: "string"
+        example: "MTE2LjQ4OTM1Nw==  经度"
+      latitude:
+        type: "string"
+        example: "NDAuMDA4ODA5  纬度"
+      isAssociated : 
+        type: "string"
+        example: "通过基站id关联性能工单 ，有的话取性能工单Id，没有是空"
+      region_name:
+        type: "string"
+        example: "NDAuMDA4ODA5  区域名称 （区域表）"
+        
+  searchPerformanceWorks:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/searchPerformanceWorkArray"
+  searchKeyAreas:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/searchKeyAreasArray"
+  GetStationLocation:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string" 
+      data:
+        $ref: "#/definitions/GetStationLocationArray"
+  GetStationLocationArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/StationLocation"
+  StationLocation:
+    type: "object"
+    properties:
+      sheet_id:
+          type: "string"
+          example: "ID-3021-190104-01766"
+      station_name:
+          type: "string"
+          example: "朝阳东辛店村铁路北HD"
+      station_id:
+          type: "string"
+          example: "18264"
+      station_type:
+          type: "string"
+          example: "2G"
+      sheet_current_department:
+          type: "string"
+          example: "城区一分公司.网络部"
+      honeycomb_type:
+          type: "string"
+          example: "宏蜂窝"
+      fgs:
+          type: "string"
+          example: "城一分公司"
+      longitude:
+          type: "string"
+          example: "MTE2LjQ4OTM1Nw=="
+      latitude:
+          type: "string"
+          example: "NDAuMDA4ODA5"
+  searchKeyAreasArray:
+    type: "array"
+    items: 
+      $ref: "#/definitions/searchKeyAreasObject"
+  searchPerformanceWorkArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/searchPerformanceWorkObject"
+  searchPerformanceWorkObject:
+    type: "object"
+    properties:
+      sheet_id:
+        type: "string"
+        example: "ID-3021-190104-01766  工单id"
+      station_name: 
+        type: "string"
+        example: "朝阳东辛店村铁路北HD  基站名称"
+      station_id:
+        type: "string"
+        example: "18264 基站id"
+      station_type:
+        type: "string"
+        example: "2G  基站类型"
+      sheet_current_department: 
+        type: "string"
+        example: "城区一分公司.网络部 处理部门"
+      honeycomb_type:
+        type: "string"
+        example: "宏蜂窝  网元类型"
+      fgs:
+        type: "string"
+        example: "城一分公司  分公司"
+      longitude: 
+        type: "string"
+        example: "MTE2LjQ4OTM1Nw==  经度"
+      latitude:
+        type: "string"
+        example: "NDAuMDA4ODA5  纬度"
+      isAssociated : 
+        type: "string"
+        example: "通过基站id关联性能工单 ，有的话取性能工单Id，没有是空"
+      region_name:
+        type: "string"
+        example: "NDAuMDA4ODA5  区域名称 （区域表）"
+        
+  getCompanyOrPerson:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/CompanyOrPersonArray"
+  
+  CompanyOrPersonArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/CompanyOrPersonObject"
+  CompanyOrPersonObject:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        example: "company  类型"
+      hierarchyId: 
+        type: "string"
+        example: "860111  部门id"
+      name: 
+        type: "string"
+        example: "维护中心  部门名称"
+      onLine: 
+        type: "string"
+        example: "   是否在线"
+      companyNumber:
+        type: "string"
+        example: "0  部门人员数量"
+      onLineCompanyNumber: 
+        type: "string"
+        example: "0  部门人员在线数量"
+      isCheck: 
+        type: "string"
+        example: "false  写死false"
+      isOpened:
+        type: "string"
+        example: "false  写死false"
+      persons: 
+        $ref: "#/definitions/PersonArray"
+  PersonArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/PersonObject"
+  PersonObject:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        example: "person  类型"
+      hierarchyId: 
+        type: "string"
+        example: "人员id"
+      name: 
+        type: "string"
+        example: "人员名称"
+      onLine: 
+        type: "string"
+        example: "true/false  是否在线"
+      phone: 
+        type: "string"
+        example: "人员电话"
+      isCheck: 
+        type: "string"
+        example: "false  写死false"
+  getPerson:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/PersonArray"
+  sendMessageForVideo:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      receiveMessageGroups: 
+        $ref: "#/definitions/ReceiveMessageGroupArray"
+      receiveMessagePersons: 
+        $ref: "#/definitions/ReceiveMessagePersonArray"
+  ReceiveMessageGroupArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/ReceiveMessageGroupObject"
+  ReceiveMessageGroupObject:
+    type: "object"
+    properties:
+      receiveId:
+        type: "string"
+        example: "接收组id"
+  ReceiveMessagePersonArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/ReceiveMessagePersonObject"
+  ReceiveMessagePersonObject:
+    type: "object"
+    properties:
+      receiveId:
+        type: "string"
+        example: "接收人id"
+      receiveName:
+        type: "string"
+        example: "接收人名称"
+      receivePhone:
+        type: "string"
+        example: "接收人手机号"
+        
+  sendMessageForVideoResponse:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        type: "string"
+        example: ""
+  realTimeSign:
+    type: "object"
+    properties:
+      userAccount:
+        type: "string"
+        example: "登录用户账号"
+      userId: 
+        type: "string"
+        example: "登录用户id"
+      longitude:
+        type: "string"
+        example: "经度"
+      latitude: 
+        type: "string"
+        example: "纬度"
+      location:
+        type: "string"
+        example: "位置"
+      isSignBack: 
+        type: "string"
+        example: "是否签退 true/false"
+  realTimeSignResponse:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        type: "string"
+        example: ""
+  searchSign:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/searchSignArray"
+  searchSignArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/searchSignObject"
+  searchSignObject:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+        example: "用户id"
+      userName: 
+        type: "string"
+        example: "用户名称"
+      signInTime:
+        type: "string"
+        example: "签到时间"
+      signInAddress: 
+        type: "string"
+        example: "签到地点"
+      signBackTime:
+        type: "string"
+        example: "签退时间"
+      signBackAddress: 
+        type: "string"
+        example: "签退地点"
+  searchSignLine:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/searchSignLineArray"
+  searchSignLineArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/searchSignLineObject"
+  searchSignLineObject:
+    type: "object"
+    properties:
+      longitude:
+        type: "string"
+        example: "经度"
+      latitude: 
+        type: "string"
+        example: "纬度"
+        
+  getSecurityPersons:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/getSecurityPersonArray"
+  getSecurityPersonArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/getSecurityPersonObject"
+  getSecurityPersonObject:
+    type: "object"
+    properties:
+      userName:
+        type: "string"
+        example: "用户名"
+      userId: 
+        type: "string"
+        example: "用户id"
+      video:
+        type: "string"
+        example: "用户电话"
+      picture: 
+        type: "string"
+        example: "是否有照片"
+      longitude:
+        type: "string"
+        example: "显示最晚时间的经度"
+      latitude: 
+        type: "string"
+        example: "显示最晚时间的纬度"
+      location: 
+        type: "string"
+        example: "位置"
+  getmanyTimeSearch:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/manyTimeSearch"
+  manyTimeSearch:
+    type: "object"
+    properties:
+      time: 
+        type: "string"
+        example: 
+          - '2019-02-13'
+          - '2019-02-14'
+          - '2019-02-15'
+          - '...'
+          - '2019-02-20'
+      neId:
+        type: "string"
+        example: "网元Id"
+      kpis:
+        $ref: "#/definitions/kpis"
+      
+  kpis:
+    type: "array"
+    items:
+      $ref: "#/definitions/kpi"
+  kpi:
+    type: "object"
+    properties:
+      kpiInfo:
+        $ref: "#/definitions/kpiInfos"
+      kpiValue:
+        type: "string"
+        example: 
+          - '1'
+          - '45'
+          - '2'
+          - '...'
+          - '31'
+  kpiInfos:
+    type: "object"
+    properties:
+      unit:
+        type: "string"
+        example: "单位"
+      tendency:
+        type: "string"
+        example: "趋势"
+      kpiName:
+        type: "string"
+        example: "指标名"
+      kpiId:
+        type: "string"
+        example: "指标id"
+        
+  getsingleLatitudeGetKpi:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/singleLatitudeGetKpiObject"
+  
+  singleLatitudeGetKpiObject:
+    type: "object"
+    properties:
+      time:
+        type: "string"
+        example: "时间"
+      neId:
+        type: "string"
+        example: "网元Id"
+      kpis:
+        $ref: "#/definitions/singleLatitudeGetKpis"
+  singleLatitudeGetKpis:
+    type: "array"
+    items:
+      $ref: "#/definitions/singleLatitudeGetKpiOne"
+  singleLatitudeGetKpiOne:
+    type: "object"
+    properties:
+      kpiInfo:
+        $ref: "#/definitions/AreaInfos"
+      kpiValue:
+        type: "string"
+        example: "指标值"
+      weeksForm:
+        type: "string"
+        example: "周环比"
+      monthsForm:
+        type: "string"
+        example: "月环比"
+      yearsForm:
+        type: "string"
+        example: "年环比"
+      peakTime:
+        type: "string"
+        example: "峰值时段"
+      yearAccumulated:
+        type: "string"
+        example: "年累计"
+      dailyCompare:
+        type: "string"
+        example: "较日常值"
+
+  AreaInfos:
+    type: "object"
+    properties:
+      unit:
+        type: "string"
+        example: "单位"
+      tendency:
+        type: "string"
+        example: "趋势"
+      kpiName:
+        type: "string"
+        example: "指标名"
+      kpiId:
+        type: "string"
+        example: "指标id"
+      instructions:
+        type: "string"
+        example: "指标说明"
+      time_interval:
+        type: "string"
+        example: "时间粒度"
+        
+  sendSmsInfo:
+    type: "object"
+    properties:
+      battleId:
+        type: "string"
+        example: "作战室id"
+      battleName:
+        type: "string"
+        example: "作战室名称"
+      taskName:
+        type: "string"
+        example: "任务名称"
+      ReceiveMessagePersonArray:
+        type: "array"
+        items:
+          $ref: "#/definitions/ReceiveMessagePersonObject"

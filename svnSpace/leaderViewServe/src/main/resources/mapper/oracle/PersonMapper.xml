@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inspur.plugins.ldst.dao.PersonDao">
+
+	<resultMap id="PersonResultMap" type="Person">
+		<result column="zh_label" 	property="zhLabel"/>
+		<result column="maintain_area" 	property="maintainArea"/>
+	</resultMap>
+
+
+	<select id="getPhoneByName" resultMap="PersonResultMap">
+		SELECT * FROM PM_GFS_PERSON WHERE ZH_LABEL = #{name}
+	</select>
+
+</mapper>

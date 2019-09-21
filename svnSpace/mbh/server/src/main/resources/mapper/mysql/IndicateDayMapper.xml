@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inspur.plugins.ldst.dao.IndicateDayDao">
+
+    <select id="getByName" resultType="java.util.HashMap">
+		select Withdrawal_rate_2g,Withdrawal_rate_4g,complete_Timely_rate,form_Compliance_rate,one_Passing_rate,Utilization_rate,Attendance_rate,Upper_station_rate,Frontline_rate
+		from PM_GFS_INDICATE_DAY where FGS= #{name} and to_days(TIME) = to_days(#{time})
+	</select>
+
+    <select id="getByName2" resultType="java.util.HashMap">
+		select *
+		from PM_GFS_INDICATE_DAY where FGS=#{name} and to_days(TIME) = to_days(#{time})
+	</select>
+
+    <select id="getByToday" resultType="java.util.HashMap">
+		select *
+		from PM_GFS_INDICATE_DAY_T where FGS=#{name} and to_days(TIME) = to_days(#{time})
+	</select>
+
+    <select id="getByTime" resultType="java.util.HashMap">
+		select ${name},time TIME
+		from PM_GFS_INDICATE_DAY
+		where fgs = '${city}' and time between #{endTime} and #{startTime}
+		order by time
+	</select>
+
+    <select id="getByCloumnName" parameterType="hashmap" resultType="java.util.HashMap">
+
+        select ${name},FGS
+        from PM_GFS_INDICATE_DAY
+        where to_days(TIME) = to_days(#{time})
+
+    </select>
+
+    <select id="getByColumnTable" resultType="java.util.HashMap">
+        select ${columnName}
+        from ${tableName} where FGS =#{city} and to_days(TIME) = to_days(#{time})
+    </select>
+
+</mapper>

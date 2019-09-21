@@ -1,0 +1,112 @@
+swagger: "2.0"
+info:
+  description: "重保重大活动保障相关功能"
+  version: "1.0.0"
+  title: "场景保障"
+host: "petstore.swagger.io"
+basePath: "/scenesecurityserve"
+schemes:
+- "http"
+paths:
+  /focus/getGuaranteeTeam:
+    get:
+      tags:
+      - "Person"
+      summary: "查询作战室下的人员接口"
+      description: "查询作战室下的人员接口"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userAccount"
+        in: "query"
+        description: "登录用户账号"
+        required: true
+        type: "string"
+      - name: "roomId"
+        in: "query"
+        description: "作战室id"
+        required: true
+        type: "string"
+      - name: "searchText"
+        in: "query"
+        description: "查询值(模糊查询人，为空时全返回)"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getCompanyOrPerson"
+        404:
+          description: "Kpi not found"
+  
+definitions:
+  getCompanyOrPerson:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/CompanyOrPersonArray"
+  
+  CompanyOrPersonArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/CompanyOrPersonObject"
+  CompanyOrPersonObject:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        example: "company  类型"
+      hierarchyId: 
+        type: "string"
+        example: "860111  部门id"
+      name: 
+        type: "string"
+        example: "维护中心  部门名称"
+      companyNumber:
+        type: "string"
+        example: "0  部门人员数量"
+      isCheck: 
+        type: "string"
+        example: "false  写死false"
+      isOpened:
+        type: "string"
+        example: "false  写死false"
+      persons: 
+        $ref: "#/definitions/PersonArray"
+  PersonArray:
+    type: "array"
+    items:
+      $ref: "#/definitions/PersonObject"
+  PersonObject:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        example: "person  类型"
+      hierarchyId: 
+        type: "string"
+        example: "人员id"
+      receiveVideoNum: 
+        type: "string"
+        example: "视频id"
+      name: 
+        type: "string"
+        example: "人员中文名称"
+      account: 
+        type: "string"
+        example: "AD_ACCOUNT"
+      phone: 
+        type: "string"
+        example: "人员电话"
+      isCheck: 
+        type: "string"
+        example: "false  写死false"

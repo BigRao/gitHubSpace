@@ -1,0 +1,343 @@
+swagger: "2.0"
+info:
+  description: "魔百和"
+  version: "1.0.0"
+  title: "魔百和"
+host: "10.110.2.42:8809"
+basePath: "/mbh"
+schemes:
+- "http"
+paths:
+  /recordLog:
+    post:
+      tags:
+      - "log"
+      summary: "记录操作日志"
+      description: "记录操作日志"
+      produces:
+      - "application/json"
+      parameters: 
+      - in: "body"
+        name: "body"
+        description: "记录日志信息"
+        required: true
+        schema:
+          $ref: "#/definitions/RecodeLogsInfo"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/General"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /singleLatitudeGetKpi:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "单一纬度值接口"
+      description: "单一纬度值接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getsingleLatitudeGetKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /rankKpi:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "查询kpi排名接口"
+      description: "查询kpi排名接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "指标id"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20"
+        required: true
+        type: "string"
+      - name: "neName"
+        in: "query"
+        description: "分公司名称或服务器名称"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getRankKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /manyTimeSearch:
+    get:
+      tags:
+      - "NetWorkDaily"
+      summary: "多时间维度查询接口"
+      description: "多时间维度查询接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "指标id"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "多时间维度，如：2019-02-20/7 2019-2-20 向前十天的数据"
+        required: true
+        type: "string"
+      - name: "neName"
+        in: "query"
+        description: "分公司名称或服务器名称"
+        required: true
+        type: "string"
+      - name: "isMax"
+        in: "query"
+        description: "true/false 是否是最大时间 "
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getmanyTimeSearch"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  
+definitions:
+  getRankKpi:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/rankKpi"
+  rankKpi:
+    type: "object"
+    properties:
+      unit:
+        type: "string"
+        example: "单位"
+      tendency:
+        type: "string"
+        example: "时间粒度"
+      kpiName:
+        type: "string"
+        example: "指标名"
+      kpiId:
+        type: "string"
+        example: "指标id"
+      neName:
+        type: "string"
+        example: 
+          - '城一分公司'
+          - '评估分公司'
+          - '城二分公司'
+          - '...'
+          - '城三分公司'
+      kpis:
+        type: "string"
+        example: 
+          - '99'
+          - '45'
+          - '43'
+          - '...'
+          - '31'
+          
+  getmanyTimeSearch:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/manyTimeSearch"
+  manyTimeSearch:
+    type: "object"
+    properties:
+      time: 
+        type: "string"
+        example: 
+          - '2019-02-13'
+          - '2019-02-14'
+          - '2019-02-15'
+          - '...'
+          - '2019-02-20'
+      neId:
+        type: "string"
+        example: "网元Id"
+      kpis:
+        $ref: "#/definitions/kpis"
+      
+  kpis:
+    type: "array"
+    items:
+      $ref: "#/definitions/kpi"
+  kpi:
+    type: "object"
+    properties:
+      kpiInfo:
+        $ref: "#/definitions/kpiInfos"
+      kpiValue:
+        type: "string"
+        example: 
+          - '1'
+          - '45'
+          - '2'
+          - '...'
+          - '31'
+  kpiInfos:
+    type: "object"
+    properties:
+      unit:
+        type: "string"
+        example: "单位"
+      tendency:
+        type: "string"
+        example: "趋势"
+      kpiName:
+        type: "string"
+        example: "指标名"
+      kpiId:
+        type: "string"
+        example: "指标id"
+  getsingleLatitudeGetKpi:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/singleLatitudeGetKpiObject"
+  
+  singleLatitudeGetKpiObject:
+    type: "object"
+    properties:
+      time:
+        type: "string"
+        example: "时间"
+      neId:
+        type: "string"
+        example: "网元Id"
+      kpis:
+        $ref: "#/definitions/singleLatitudeGetKpis"
+  singleLatitudeGetKpis:
+    type: "array"
+    items:
+      $ref: "#/definitions/singleLatitudeGetKpiOne"
+  singleLatitudeGetKpiOne:
+    type: "object"
+    properties:
+      kpiInfo:
+        $ref: "#/definitions/AreaInfos"
+      kpiValue:
+        type: "string"
+        example: "指标值"
+      weeksForm:
+        type: "string"
+        example: "周环比"
+      monthsForm:
+        type: "string"
+        example: "月环比"
+      yearsForm:
+        type: "string"
+        example: "年环比"
+      peakTime:
+        type: "string"
+        example: "峰值时段"
+      yearAccumulated:
+        type: "string"
+        example: "年累计"
+      dailyCompare:
+        type: "string"
+        example: "较日常值"
+
+  AreaInfos:
+    type: "object"
+    properties:
+      unit:
+        type: "string"
+        example: "单位"
+      tendency:
+        type: "string"
+        example: "趋势"
+      kpiName:
+        type: "string"
+        example: "指标名"
+      kpiId:
+        type: "string"
+        example: "指标id"
+      instructions:
+        type: "string"
+        example: "指标说明"
+      time_interval:
+        type: "string"
+        example: "时间粒度"
+  RecodeLogsInfo:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+        example: "用户账号"
+      userName: 
+        type: "string"
+        example: "用户名"
+      typeName: 
+        type: "string"
+        example: "操作类型 insert/delete/update/search"
+      appName:
+        type: "string"
+        example: "应用名称"
+      moduleName:
+        type: "string"
+        example: "模块名称 统一作战室"
+      result:
+        type: "string"
+        example: "成功，失败"
+  General:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"

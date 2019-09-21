@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.inspur.bjzx.operationalog.dao.RecodeDao">
+
+	<insert id="setRecodeLogs" parameterType="Recode" >
+		insert into T_APPLOG (ID, USERID, USERNAME, TYPENAME, APPNAME, MODULENAME, PARAMS, RESULT, INSERTTIME, IP)
+		values (APP_OPERATIONLOG_ID_SEQ.nextval,#{userId},#{userName},#{typeName},#{appName},#{moduleName},#{params},#{result},#{insertTime},#{ip})
+	</insert>
+
+</mapper>

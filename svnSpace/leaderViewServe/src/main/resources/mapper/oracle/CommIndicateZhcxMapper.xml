@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inspur.plugins.ldst.dao.CommIndicateZhcxDao">
+
+	<resultMap id="CommIndicateZhcxResultMap" type="CommIndicateZhcx">
+		<result column="indic_id"	property="indicId"/>
+		<result column="indic_name"	property="indicName"/>
+		<result column="indic_name_alias"	property="indicNameAlias"/>
+		<result column="vendor_ids"	property="vendorIds"/>
+		<result column="space_desc"	property="spaceDesc"/>
+		<result column="object_class"	property="objectClass"/>
+		<result column="table_name"	property="tableName"/>
+		<result column="column_name"	property="columnName"/>
+		<result column="condition"	property="condition"/>
+		<result column="indic_type"	property="indicType"/>
+		<result column="indic_unit"	property="indicUnit"/>
+		<result column="time_interval"	property="timeInterval"/>
+		<result column="key_field"	property="keyField"/>
+		<result column="start_time"	property="startTime"/>
+		<result column="is_lv"	property="isLv"/>
+		<result column="city_field"	property="cityField"/>
+		<result column="is_float"	property="isFloat"/>
+		<result column="column_group"	property="columnGroup"/>
+		<result column="field_name"	property="fieldName"/>
+		<result column="column_rc"	property="columnRc"/>
+		<result column="column_jsj"	property="columnJsj"/>
+		<result column="column_jz"	property="columnJz"/>
+		<result column="column_d"	property="columnD"/>
+		<result column="column_w"	property="columnW"/>
+		<result column="column_m"	property="columnM"/>
+		<result column="column_y"	property="columnY"/>
+		<result column="ne_indic_id"	property="neIndicId"/>
+		<result column="vendor_col"	property="vendorCol"/>
+		<result column="col_source"	property="colSource"/>
+		<result column="note"	property="note"/>
+		<result column="influx_dbname"	property="influxDbname"/>
+
+	</resultMap>
+
+    <select id="getById" resultMap="CommIndicateZhcxResultMap">
+		SELECT * FROM FMS_COMM_INDICATE_ZHCX WHERE INDIC_ID in (${id})
+	</select>
+
+	<select id="getListById" resultType="java.util.HashMap">
+		SELECT * FROM FMS_COMM_INDICATE_ZHCX WHERE INDIC_ID in (${id})
+	</select>
+
+    <select id="getOne" resultMap="CommIndicateZhcxResultMap">
+		select INDIC_ID,INDIC_NAME,INDIC_NAME_ALIAS
+        from FMS_COMM_INDICATE_ZHCX where upper(COLUMN_NAME) = upper('${columnName}')
+	</select>
+
+	<select id="getByList" resultMap="CommIndicateZhcxResultMap">
+		select INDIC_ID,INDIC_NAME,TABLE_NAME,COLUMN_NAME,TIME_INTERVAL
+		from FMS_COMM_INDICATE_ZHCX
+		where INDIC_NAME_ALIAS in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inspur.bjzx.mbh.dao.CommIndicateZhcxDao">
+
+	<select id="getListById" resultType="java.util.HashMap">
+		select INDIC_ID,INDIC_NAME,TABLE_NAME,COLUMN_NAME,TIME_INTERVAL,IS_FLOAT,INDIC_UNIT,INDIC_TYPE
+		from FMS_COMM_INDICATE_ZHCX_BAK
+		where INDIC_ID in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+
+	</select>
+
+	<select id="getByKpiId" resultType="java.util.HashMap">
+		select ${column} as "column_name"
+		from ${table}
+		where
+			time = #{time}
+		and nename = '合计'
+	</select>
+
+	<select id="getRankByKpiId" resultType="java.util.HashMap">
+		select ${column} as "column_name",NENAME
+		from ${table}
+		where
+			time = #{time}
+		and nename != '合计'
+		order by
+			${column} desc
+	</select>
+
+	<select id="getMaxTime" resultType="java.util.HashMap">
+		select Max(time) "maxTime"
+		from ${table}
+	</select>
+
+	<select id="manyTimeSearch" resultType="java.util.HashMap">
+		select ${column} as "column_name", DATE_FORMAT(TIME,
+		<if test="timeType == 'mm-dd'">
+			'%m-%d'
+		</if>
+		<if test="timeType == 'mm-dd hh24'">
+			'%m-%d %H'
+		</if>
+		<if test="timeType == 'hh24:mi'">
+			'%H:%i'
+		</if>
+		) TIME
+		from ${table}
+		where
+			nename = #{neName}
+		and
+		 	time between #{firstTime} and #{lastTime}
+		order by time;
+	</select>
+</mapper>

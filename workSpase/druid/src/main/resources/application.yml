@@ -1,0 +1,80 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /ksserver
+spring:
+  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    username: BJTEST
+#    password: aD4MLlGk
+#    url: jdbc:oracle:thin:@172.31.1.68:1521:orcl
+
+    druid:
+      # 初始化大小
+      initial-size: 5
+      # 维持的最小连接数
+      min-idle: 5
+      # 维持的最大连接数
+      max-active: 20
+      # 获取连接等待超时的时间 1*60*1000
+      max-wait: 60000
+      #keep-alive-between-time-millis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接 1*60*1000ms
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 default=1分钟
+      #有两个含义：
+      # (1)Destroy线程会检测连接的间隔时间，如果连接空闲时间大于等于minEvictableIdleTimeMillis则关闭物理连接
+      # (2)testWhileIdle的判断依据，详细看testWhileIdle属性的说明
+      time-between-eviction-runs-millis: 60000
+      # 连接池空闲连接的有效时间 ,1*60/2*1000ms
+      min-evictable-idle-time-millis: 300000
+      # 指定获取连接时连接校验的sql查询语句
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 60
+      # 验证连接有效性
+      test-while-idle: true
+      #连接池中的minIdle数据以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作。default=false
+      keep-alive: true
+      # 获取连接时候验证
+      test-on-borrow: false
+      test-on-return: false
+      web-stat-filter:
+        enabled: true #是否启用StatFilter默认值false
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid2/*"
+      stat-view-servlet:
+        enabled: true #是否启用StatViewServlet（监控页面）默认值为false（考虑到安全问题默认并未启动，如需启用建议设置密码或白名单以保障安全）
+        login-username: 123 #登录用户名
+        login-password: 123 #登录密码
+        deny: 192.168.1.1 #白名单
+        allow:  #黑名单
+        url-pattern: /druid2/*  #访问路径
+      filter:
+        stat:
+          enabled: true
+          db-type: oracle
+          log-slow-sql: true
+          slow-sql-millis: 2000
+        wall:
+          enabled: true
+          db-type: oracle
+          config:
+            delete-allow: false
+            drop-table-allow: false
+        log4j2:
+          enabled: true
+
+  #            username: BJTEST
+  #            password: aD4MLlGk
+  #            url: jdbc:oracle:thin:@172.31.1.68:1521:orcl
+
+  output:
+    ansi:
+      enabled: detect
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        jdbc:
+#          core:
+#            JdbcTemplate: debug
+
+

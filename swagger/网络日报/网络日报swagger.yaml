@@ -1,0 +1,447 @@
+swagger: "2.0"
+info:
+  description: "网络日报"
+  version: "1.0.0"
+  title: "网络日报"
+host: "petstore.swagger.io"
+basePath: "/networkdaily"
+schemes:
+- "http"
+paths:
+  /singleLatitudeGetKpi:
+    get:
+      tags:
+      - "Notice"
+      summary: "单一纬度值接口"
+      description: "单一纬度值接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20或最大时间值max"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getsingleLatitudeGetKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /manyTimeSearch:
+    get:
+      tags:
+      - "Notice"
+      summary: "多时间维度查询接口"
+      description: "多时间维度查询接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "多时间维度，如：max/7 就相当于：最大时间/需要获取的天数或者小时数，或者分钟数；或2019-02-20/7"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      - name: "time_type"
+        in: "query"
+        description: "时间类型 hour 小时 minutes     分钟 day 天"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getmanyTimeSearch"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /manyLatitudeGetKpi:
+    get:
+      tags:
+      - "Notice"
+      summary: "多网元维度查询接口"
+      description: "多网元维度查询接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20或最大时间值max"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "多网元Id，以逗号分隔"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getmanyLatitudeGetKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /getTopKpi:
+    get:
+      tags:
+      - "Notice"
+      summary: "TOP查询接口"
+      description: "TOP查询接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20或最大时间值max"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getmanyLatitudeGetKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /saveCollection:
+    post:
+      tags:
+      - "Notice"
+      summary: "收藏接口"
+      description: "收藏接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      - name: "userAccount"
+        in: "query"
+        description: "账号"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getsaveCollection"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+          
+  /getCollection:
+    get:
+      tags:
+      - "Notice"
+      summary: "获取收藏信息接口"
+      description: "获取收藏信息接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "time"
+        in: "query"
+        description: "单时间值2019-02-20或最大时间值max"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      - name: "userAccount"
+        in: "query"
+        description: "账号"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getsingleLatitudeGetKpi"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"
+  /cancelCollection:
+    post:
+      tags:
+      - "Notice"
+      summary: "取消收藏信息接口"
+      description: "取消收藏信息接口"
+      produces:
+      - "application/json"
+      parameters: 
+      - name: "kpiId"
+        in: "query"
+        description: "多指标id，以逗号分隔"
+        required: true
+        type: "string"
+      - name: "neId"
+        in: "query"
+        description: "单网元Id"
+        required: true
+        type: "string"
+      - name: "userAccount"
+        in: "query"
+        description: "账号"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/getcancelCollection"
+        404:
+          description: "company not found"
+        405:
+          description: "Invalid input"        
+  
+definitions:
+  getcancelCollection:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "取消收藏成功"
+      data: 
+        type: "string"
+        example: ""
+  getsaveCollection:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "收藏成功"
+      data: 
+        type: "string"
+        example: ""
+  getmanyLatitudeGetKpi:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/manyLatitudeGetKpi"
+  manyLatitudeGetKpi:
+    type: "object"
+    properties:
+      neName: 
+        type: "string"
+        example: 
+          - '城一'
+          - '城二'
+          - '城三'
+          - '...'
+          - '昌平'
+      neId:
+        type: "string"
+        example: "网元Id"
+      time:
+        type: "string"
+        example: "时间"
+      kpis:
+        $ref: "#/definitions/kpis"
+        
+  getmanyTimeSearch:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/manyTimeSearch"
+  manyTimeSearch:
+    type: "object"
+    properties:
+      time: 
+        type: "string"
+        example: 
+          - '2019-02-13'
+          - '2019-02-14'
+          - '2019-02-15'
+          - '...'
+          - '2019-02-20'
+      neId:
+        type: "string"
+        example: "网元Id"
+      kpis:
+        $ref: "#/definitions/kpis"
+      
+  kpis:
+    type: "array"
+    items:
+      $ref: "#/definitions/kpi"
+  kpi:
+    type: "object"
+    properties:
+      kpiInfo:
+        $ref: "#/definitions/kpiInfos"
+      kpiValue:
+        type: "string"
+        example: 
+          - '1'
+          - '45'
+          - '2'
+          - '...'
+          - '31'
+  kpiInfos:
+    type: "object"
+    properties:
+      unit:
+        type: "string"
+        example: "单位"
+      tendency:
+        type: "string"
+        example: "趋势"
+      kpiName:
+        type: "string"
+        example: "指标名"
+      kpiId:
+        type: "string"
+        example: "指标id"
+        
+  getsingleLatitudeGetKpi:
+    type: "object"
+    properties:
+      result:
+        type: "string"
+        example: "true/false"
+      message: 
+        type: "string"
+        example: "查询成功"
+      data: 
+        $ref: "#/definitions/singleLatitudeGetKpiObject"
+  
+  singleLatitudeGetKpiObject:
+    type: "object"
+    properties:
+      time:
+        type: "string"
+        example: "时间"
+      neId:
+        type: "string"
+        example: "网元Id"
+      kpis:
+        $ref: "#/definitions/Areas"
+  
+  Areas:
+    type: "array"
+    items:
+      $ref: "#/definitions/Area"
+      
+  Area:
+    type: "object"
+    properties:
+      kpiInfo:
+        $ref: "#/definitions/AreaInfos"
+      kpiValue:
+        type: "string"
+        example: "指标值"
+      weeksForm:
+        type: "string"
+        example: "周环比"
+      monthsForm:
+        type: "string"
+        example: "月环比"
+      yearsForm:
+        type: "string"
+        example: "年环比"
+      peakTime:
+        type: "string"
+        example: "峰值时段"
+      yearAccumulated:
+        type: "string"
+        example: "年累计"
+
+  AreaInfos:
+    type: "object"
+    properties:
+      unit:
+        type: "string"
+        example: "单位"
+      tendency:
+        type: "string"
+        example: "趋势"
+      kpiName:
+        type: "string"
+        example: "指标名"
+      kpiId:
+        type: "string"
+        example: "指标id"
+      instructions:
+        type: "string"
+        example: "指标说明"
+        
+
+
+
+
+  
